@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta charset="UTF-8">
+	<title>SterbenSQ的主页</title>
+	<script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+	<!-- <script type="text/javascript">
+		 function gotobyid(bid){
+			$.ajax({
+				url:"test1",
+				type:"POST",
+				data:{/* _method:'DELETE', */bid:bid},
+				contentType:"application/x-www-form-urlencoded",/* 有时候默认，有时候会出错，也要注意 */
+				dataType:"json",/* 预期服务器返回的结果类型（服务器返回的不一定是json */
+				success:function(data){
+					alert(data);
+				}
+			});
+		} 
+	</script> -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+	</head>
+	<body>
+	<div class="continer">
+		<div id="head">
+			<div id="headlogo" onclick="window.location.href='index'"><img alt="logo" th:src = "@{/imgs/headtik.jpg}"/></div>
+			<div style="flex: right;">
+				<form action="searchblog" method="POST">
+					<input name="搜索" type="submit" value="搜索" />
+					<input name="btitle" type="search"/>
+				</form>
+			</div>
+			<div id="headmenu">
+				<a href="index">首页</a>
+			</div>
+		</div>
+		<div id="container">
+			<div id="left">
+				<img class="headtik" alt="headlog" th:src="@{/imgs/headtik.jpg}">
+				<p>SterbenSQ</p>
+				<p>发现问题</p>
+				<p>寻找理论</p>
+				<p>进行实践</p>
+				<p>找到答案</p>
+				<p>------</p>
+				<p>提出假想</p>
+				<p>参考理论</p>
+				<p>手动实践</p>
+				<p>完成目标</p>
+			</div>
+			<div id="center" class="showview">
+				<div id="blog-list" th:each="blog,blogStat:${bloglist}">
+							<div class="blogs" onclick="window.location.href='selectblog?bid=${blog.bid}'">
+								<div class="blogimg" >
+									<img alt="blog_img" th:src="${blog.bimg }">
+									<div class="img_title"><h2 class="blog_btitle" th:text="${blog.btitle }"></h2><!-- 题目 --></div>
+									<div class="img_txt" style="position:absolute; text-align: center;">
+									    <p class="blog_bcontent" th:text="${blog.bcontent }"></p><!-- 标签分类，或者说明 -->
+									    <%-- <p class="blog_bcontiner" th:text="${blog.bcontiner }"></p> --%><!-- 内容 ，不需要显示-->
+									    <p class="blog_username" th:text="${blog.username }"></p><!-- 作者 -->
+									    <p class="blog_date" th:text="${blog.date }"></p><!-- 发表日期 -->
+									</div>
+								</div>
+								<div class="blog">
+								</div>
+								<div class="lines"></div>
+							</div>
+						<c:if test="${totalPages !=null && totalPages > 1 || currentPage > 1}">
+							<form action="fanye" style="display:inline-flex;"><!-- 怼天怼地怼空气 “逗号”翻页，就是这么朴实-->
+								<a href="uppage?currentPage=${currentPage }">上一页</a><div>|  当前页：${currentPage }，总页数：${totalPages }  |</div><a href="dnpage?currentPage=${currentPage }">下一页</a>
+							</form>
+						</c:if>
+				</div>
+			</div>
+			<div id="right">
+			
+			</div>
+		</div>
+		<div id="footer">
+			<a href="#">hello world!</a>
+		</div>
+	</div>
+	</body>
+</html>
